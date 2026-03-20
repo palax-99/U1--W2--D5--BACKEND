@@ -1,6 +1,7 @@
 package AntoninoPalazzolo;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Application {
 
@@ -57,6 +58,124 @@ public class Application {
         System.out.println(provaUpdateById);
 
         collection3.getTheStatics(); // testo il metodo per trovarmi le statistiche
+        Scanner scanner = new Scanner(System.in);
+
+        boolean scannerFunzionante = true;
+        while (scannerFunzionante) {
+            System.out.println("Scegli un'opzione:");
+            System.out.println("1. Aggiungi gioco");
+            System.out.println("2. Cerca per ID");
+            System.out.println("3. Cerca per prezzo");
+            System.out.println("4. Cerca per numero di giocatori");
+            System.out.println("5. Rimuovi tramite ID");
+            System.out.println("6. Aggiorna tramite ID");
+            System.out.println("7. Ottieni le statistiche generali");
+
+            System.out.println("0. Esci");
+
+            int sceltaDeiNumeri = Integer.parseInt(scanner.nextLine().trim());
+
+            switch (sceltaDeiNumeri) {
+                case 1:
+                    System.out.println("Che tipo di gioco vuoi aggiungere? 1. Videogame 2. BoardGame");
+                    int tipo = Integer.parseInt(scanner.nextLine().trim());
+                    System.out.println("Inserisci l'ID:");
+                    long id = Long.parseLong(scanner.nextLine().trim());
+                    System.out.println("Inserisci il titolo:");
+                    String title = scanner.nextLine();
+                    System.out.println("Inserisci l'anno di pubblicazione:");
+                    int anno = Integer.parseInt(scanner.nextLine().trim());
+                    System.out.println("Inserisci il prezzo:");
+                    double price = Double.parseDouble(scanner.nextLine());
+                    if (tipo == 1) {
+                        System.out.println("Inserisci la piattaforma");
+                        String piattaforma = scanner.nextLine();
+                        System.out.println("Inserisci la durata gioco in ore");
+                        int durataGioco = Integer.parseInt(scanner.nextLine().trim());
+                        System.out.println("Inserisci il genere fra:");
+                        System.out.println(" 1 ADVENTURE");
+                        System.out.println("2 FIGHTING");
+                        System.out.println("3 PUZZLE");
+                        System.out.println("4 SIMULATION");
+                        System.out.println("5 ACTION");
+                        int sceltaGenere = Integer.parseInt(scanner.nextLine().trim());
+                        Genre genere;
+                        switch (sceltaGenere) {
+                            case 1:
+                                genere = Genre.ADVENTURE;
+                                break;
+                            case 2:
+                                genere = Genre.FIGHTING;
+                                break;
+                            case 3:
+                                genere = Genre.PUZZLE;
+                                break;
+                            case 4:
+                                genere = Genre.SIMULATION;
+                                break;
+                            case 5:
+                                genere = Genre.ACTION;
+                                break;
+                            default:
+                                genere = Genre.ACTION;
+                        }
+                        Videogame videoGameUtente = new Videogame(id, title, anno, price, piattaforma, durataGioco, genere);
+                        collection3.addGame(videoGameUtente);
+                        System.out.println(videoGameUtente);
+
+
+                    } else {
+                        System.out.println("Inserisci il numero dei giocatori");
+                        int numeroDeiGiocatori = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Inserisci la durata media di una partita");
+                        double durataMedia = Double.parseDouble(scanner.nextLine());
+                        BoardGame boardGameUtente = new BoardGame(id, title, anno, price, numeroDeiGiocatori, durataMedia);
+                        collection3.addGame(boardGameUtente);
+
+
+                    }
+                    break;
+                case 2:
+                    System.out.println(" Digita l'ID, in modo tale da trovatre il gioco");
+                    long idDigitato = Long.parseLong(scanner.nextLine());
+                    Game gameTrovatoDallUtente = collection3.searchById(idDigitato);
+                    System.out.println(gameTrovatoDallUtente);
+                    break;
+                case 3:
+                    System.out.println(" Digita il prezzo, in modo tale da trovare i giochi");
+                    double prezzoDigitato = Double.parseDouble(scanner.nextLine());
+                    List<Game> gameTrovatoDallUtenteTramitePrezzo = collection3.searchByPrice(prezzoDigitato);
+                    gameTrovatoDallUtenteTramitePrezzo.forEach(games -> System.out.println(games));
+                    break;
+                case 4:
+                    System.out.println(" Digita il numero di giocatori, in modo tale da trovare i giochi");
+                    int numeroDiPersoneDigitato = Integer.parseInt(scanner.nextLine());
+                    List<Game> gameTrovatoDallUtenteTramiteNumeroGiocatori = collection3.searchBynumberOfPlayer(numeroDiPersoneDigitato);
+                    gameTrovatoDallUtenteTramiteNumeroGiocatori.forEach(games -> System.out.println(games));
+                    break;
+                case 5:
+                    System.out.println(" Digita l'ID, in modo tale da rimuovere il gioco");
+                    long idDigitato2 = Long.parseLong(scanner.nextLine());
+                    collection3.removeById(idDigitato2);
+                    break;
+                case 6:
+                    System.out.println("Inserisci l'ID del gioco da aggiornare:");
+                    long idAggiornamento = Long.parseLong(scanner.nextLine());
+                    System.out.println("Inserisci il nuovo titolo:");
+                    String nuovoTitolo = scanner.nextLine();
+                    System.out.println("Inserisci il nuovo anno:");
+                    int nuovoAnno = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Inserisci il nuovo prezzo:");
+                    double nuovoPrezzo = Double.parseDouble(scanner.nextLine());
+                    collection3.updateById(idAggiornamento, nuovoTitolo, nuovoAnno, nuovoPrezzo);
+                    break;
+                case 7:
+                    collection3.getTheStatics();
+                case 0:
+                    scannerFunzionante = false;
+                    break;
+            }
+        }
 
 
     }

@@ -5,8 +5,6 @@ public enum Genre {
     FIGHTING,
     PUZZLE,
     SIMULATION,
-    STRATEGY,
-    RPG,
     ACTION
 
 }
