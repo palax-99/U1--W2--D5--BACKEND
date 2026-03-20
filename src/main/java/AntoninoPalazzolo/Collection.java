@@ -22,14 +22,15 @@ public class Collection {
     }
 
     public void addGame(Game game) {
+        if (game == null) {
+            System.out.println("Errore: impossibile inserire un gioco nullo");
+            return;
+        }
         if (giochi.containsKey(game.getId())) {
-            // ID già esistente, non aggiungo
             System.out.println("Errore: esiste già un gioco con questo ID");
         } else {
-            // ID non esiste, aggiungo
             giochi.put(game.getId(), game);
         }
-
     }
 
     public Game searchById(long id) {
@@ -41,14 +42,24 @@ public class Collection {
         }
     }
 
-    public List<Game> searchByPrice(double price) { // creato il metodo cerca per prezzo
-        return giochi.values().stream().filter(game -> game.getPrice() < price).toList();
+    public List<Game> searchByPrice(double price) {
+        if (price <= 0) {
+            System.out.println("Impossibile inserire un prezzo negativo o pari a zero"); // gestite le eccezioni
+            return List.of();
+        } else {
+            return giochi.values().stream().filter(game -> game.getPrice() < price).toList();// creato il metodo cerca per prezzo
+        }
     }
 
     public List<Game> searchBynumberOfPlayer(int numeroGiocatori) { // creato il metodo per cercare tramite il numero dei giocatori
-        return giochi.values().stream()
-                .filter(game -> game instanceof BoardGame && ((BoardGame) game).getNumeroGiocatori() == numeroGiocatori)
-                .toList();
+        if (numeroGiocatori <= 0) {
+            System.out.println("Il numero di giocatori deve essere positivo"); // gestite le eccezioni
+            return List.of();
+        } else {
+            return giochi.values().stream()
+                    .filter(game -> game instanceof BoardGame && ((BoardGame) game).getNumeroGiocatori() == numeroGiocatori)
+                    .toList();
+        }
     }
 
     public void removeById(long id) {
@@ -63,7 +74,15 @@ public class Collection {
     }
 
     public void updateById(long id, String title, int annoPubblicazione, double price) {
-        if (giochi.containsKey(id)) {
+        if (title.isEmpty()) {
+            System.out.println("Non è possibile non inserire un testo"); // gestisto le eccezioni
+            return;
+        }
+        if (price <= 0) {
+            System.out.println("non è possibile inserire un prezzo minore o uguale a zero"); // gestisco le eccezioni
+            return;
+        }
+        if (giochi.containsKey(id)) { // creo il metodo di aggiornamento tramite ID
             Game giocoInConsiderazione = giochi.get(id);
             giocoInConsiderazione.setTitle(title);
             giocoInConsiderazione.setAnnoPubblicazione(annoPubblicazione);

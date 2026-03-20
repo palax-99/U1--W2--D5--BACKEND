@@ -119,9 +119,13 @@ public class Application {
                             default:
                                 genere = Genre.ACTION;
                         }
-                        Videogame videoGameUtente = new Videogame(id, title, anno, price, piattaforma, durataGioco, genere);
-                        collection3.addGame(videoGameUtente);
-                        System.out.println(videoGameUtente);
+                        try { // prova a fare questo sennò
+                            Videogame videoGameUtente = new Videogame(id, title, anno, price, piattaforma, durataGioco, genere);
+                            collection3.addGame(videoGameUtente);
+                            System.out.println(videoGameUtente);
+                        } catch (IllegalArgumentException e) { // gestisco l'errore
+                            System.out.println("Errore: " + e.getMessage());
+                        }
 
 
                     } else {
@@ -129,8 +133,13 @@ public class Application {
                         int numeroDeiGiocatori = Integer.parseInt(scanner.nextLine());
                         System.out.println("Inserisci la durata media di una partita");
                         double durataMedia = Double.parseDouble(scanner.nextLine());
-                        BoardGame boardGameUtente = new BoardGame(id, title, anno, price, numeroDeiGiocatori, durataMedia);
-                        collection3.addGame(boardGameUtente);
+                        try { // prova a fare questo sennò
+                            BoardGame boardGameUtente = new BoardGame(id, title, anno, price, numeroDeiGiocatori, durataMedia);
+                            collection3.addGame(boardGameUtente);
+                            System.out.println(boardGameUtente);
+                        } catch (IllegalArgumentException e) { // gestisco l'errore
+                            System.out.println("Errore: " + e.getMessage());
+                        }
 
 
                     }

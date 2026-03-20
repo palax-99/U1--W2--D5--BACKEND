@@ -7,6 +7,12 @@ public abstract class Game {
     private double price;
 
     public Game(long id, String title, int annoPubblicazione, double price) {
+        if (title.isEmpty()) {
+            throw new IllegalArgumentException("Il titolo non può essere vuoto"); // gestisco il problema
+        }
+        if (price <= 0) {
+            throw new IllegalArgumentException("Il prezzo deve essere positivo"); // gestisco il problema
+        }
         this.id = id;
         this.title = title;
         this.annoPubblicazione = annoPubblicazione;
