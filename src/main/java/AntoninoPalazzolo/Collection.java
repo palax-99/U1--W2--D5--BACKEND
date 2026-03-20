@@ -1,8 +1,6 @@
 package AntoninoPalazzolo;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Collection {
 
@@ -74,6 +72,26 @@ public class Collection {
         } else {
             System.out.println("Gioco non trovato");
         }
+
+    }
+
+    public void getTheStatics() {
+        long numberOfVideogames = giochi.values().stream().filter(game -> game instanceof Videogame).count();
+        long numberOfBoardGame = giochi.values().stream().filter(game -> game instanceof BoardGame).count();
+        System.out.println(numberOfBoardGame);
+        System.out.println(numberOfVideogames);
+        Optional<Game> maxPrice = giochi.values().stream()
+                .max(Comparator.comparing(game -> game.getPrice()));
+
+        if (maxPrice.isPresent()) {
+            System.out.println("Gioco più costoso: " + maxPrice.get());
+        }
+        OptionalDouble statics = giochi.values().stream().mapToDouble(game -> game.getPrice()).average();
+
+        if (statics.isPresent()) {
+            System.out.println("Media prezzi: " + statics.getAsDouble());
+        }
+
 
     }
 

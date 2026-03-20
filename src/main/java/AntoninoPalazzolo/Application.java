@@ -7,6 +7,7 @@ public class Application {
     public static void main(String[] args) {
         Collection collection = new Collection();
         Collection collection2 = new Collection();
+        Collection collection3 = new Collection();
         Videogame videogame1 = new Videogame(1L, "Zelda", 2006, 49.95, "PS2",
                 45, Genre.ADVENTURE);
         BoardGame boardGame1 = new BoardGame(2L, "Monopoly", 1935, 29.99, 6, 120.0);
@@ -39,6 +40,10 @@ public class Application {
         collection2.addGame(scrabble);
         collection2.addGame(clue);
         collection2.addGame(pandemic);
+        collection3.addGame(godOfWar);
+        collection3.addGame(spyro);
+        collection3.addGame(risk);
+        collection3.addGame(pandemic);
 
         List<Game> testThePrice = collection.searchByPrice(59.90); // testato il metodo cerca per prezzo
         testThePrice.forEach(price -> System.out.println(price));
@@ -50,6 +55,8 @@ public class Application {
         collection.updateById(3L, "ciao", 1978, 20.01); // testo il metodo aggiorna tramite l'id
         Game provaUpdateById = collection.searchById(3L);
         System.out.println(provaUpdateById);
+
+        collection3.getTheStatics(); // testo il metodo per trovarmi le statistiche
 
 
     }
