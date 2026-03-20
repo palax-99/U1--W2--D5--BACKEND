@@ -46,6 +46,11 @@ public class Application {
         List<Game> testThePeople = collection2.searchBynumberOfPlayer(4); // testao il metodo cerca per numero di giocatori
         testThePeople.forEach(player -> System.out.println(player));
 
+        collection.removeById(4L); //testo il metodo removeById
+        collection.updateById(3L, "ciao", 1978, 20.01); // testo il metodo aggiorna tramite l'id
+        Game provaUpdateById = collection.searchById(3L);
+        System.out.println(provaUpdateById);
+
 
     }
 }
