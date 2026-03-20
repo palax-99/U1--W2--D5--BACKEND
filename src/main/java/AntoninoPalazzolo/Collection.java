@@ -1,6 +1,7 @@
 package AntoninoPalazzolo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Collection {
@@ -30,6 +31,25 @@ public class Collection {
             giochi.put(game.getId(), game);
         }
 
+    }
+
+    public Game searchById(long id) {
+        if (giochi.containsKey(id)) {
+            return giochi.get(id);
+        } else {
+            System.out.println("Gioco non trovato");
+            return null;
+        }
+    }
+
+    public List<Game> searchByPrice(double price) { // creato il metodo cerca per prezzo
+        return giochi.values().stream().filter(game -> game.getPrice() < price).toList();
+    }
+
+    public List<Game> searchBynumberOfPlayer(int numeroGiocatori) { // creato il metodo per cercare tramite il numero dei giocatori
+        return giochi.values().stream()
+                .filter(game -> game instanceof BoardGame && ((BoardGame) game).getNumeroGiocatori() == numeroGiocatori)
+                .toList();
     }
 
 
