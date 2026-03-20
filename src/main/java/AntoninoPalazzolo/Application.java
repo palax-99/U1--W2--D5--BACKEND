@@ -180,6 +180,7 @@ public class Application {
                     break;
                 case 7:
                     collection3.getTheStatics();
+                    break;
                 case 0:
                     scannerFunzionante = false;
                     break;
